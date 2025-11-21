@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arduino-Based Radar System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+    }
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background: #1abc9c;
+    }
+    section {
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .gallery img {
+      width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+    .btn {
+      display: inline-block;
+      background: #1abc9c;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #16a085;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Arduino-Based Radar System</h1>
+    <p>By Rudra Pratap Singh (Roll No: RA2511003011539)</p>
+  </header>
+
+  <nav>
+    <a href="#aim">Aim</a>
+    <a href="#algorithm">Algorithm</a>
+    <a href="#code">Code</a>
+    <a href="#output">Output</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
+
+  <section id="aim">
+    <h2>🎯 Aim</h2>
+    <p>The aim of this project is to design and implement a radar system using Arduino, ultrasonic sensors, and servo motors to detect objects and visualize their position.</p>
+  </section>
+
+  <section id="algorithm">
+    <h2>⚙️ Algorithm</h2>
+    <ol>
+      <li>Initialize Arduino, servo motor, and ultrasonic sensor.</li>
+      <li>Rotate servo motor from 0° to 180°.</li>
+      <li>At each angle, measure distance using ultrasonic sensor.</li>
+      <li>Send data to Processing IDE for visualization.</li>
+      <li>Display radar sweep with detected objects.</li>
+    </ol>
+  </section>
+
+  <section id="code">
+    <h2>💻 Arduino Code (Snippet)</h2>
+    <pre>
+#include <Servo.h>
+Servo myServo;
+int trigPin = 9;
+int echoPin = 10;
+
+void setup() {
+  Serial.begin(9600);
+  myServo.attach(11);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  for(int angle=0; angle<=180; angle++) {
+    myServo.write(angle);
+    delay(50);
+    long duration, distance;
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = (duration/2) / 29.1;
+    Serial.print(angle);
+    Serial.print(",");
+    Serial.println(distance);
+  }
+}
+    </pre>
+    <a class="btn" href="https://github.com/Rudi-rock/Arduino-Based-Radar-System" target="_blank">View Full Code on GitHub</a>
+  </section>
+
+  <section id="output">
+    <h2>📊 Output</h2>
+    <p>The radar sweep is visualized on Processing IDE, showing detected objects as green blips on a circular radar screen.</p>
+  </section>
+
+  <section id="gallery">
+    <h2>📸 Gallery</h2>
+    <div class="gallery">
+      <img src="radar_picture.jpeg" alt="Radar Setup">
+      <img src="PIN DIAGRAM.jpg" alt="Pin Diagram">
+      <img src="POSTER.jpg" alt="Project Poster">
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Rudra Pratap Singh | Arduino Radar Project</p>
+  </footer>
+
+</body>
+</html>
